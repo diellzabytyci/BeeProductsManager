@@ -10,7 +10,7 @@ export class CardPost extends Component {
                     <img src="" alt="card-post-title" />
                     {/* this should be hidden and only shown on hover */}
                     <div className="card-post-details">
-                        hidden section
+                        hidden section t
                     </div>
                 </div>
                 <div className="card-post-title">
