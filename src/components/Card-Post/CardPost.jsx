@@ -5,16 +5,16 @@ export class CardPost extends Component {
 
     render() {
         return (
-            <div className="card-post">
+            <div className="card-post mb-5">
                 <div className="card-post-image">
-                    <img src="" alt="card-post-title" />
+                    <img src={this.props.post.PostImage} alt="card-post-title" />
                     {/* this should be hidden and only shown on hover */}
                     <div className="card-post-details">
                         hidden section t
                     </div>
                 </div>
                 <div className="card-post-title">
-                    Some title
+                    {this.props.post.PostTitle}
                 </div>
             </div>
         );

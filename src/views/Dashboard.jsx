@@ -19,6 +19,8 @@ import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 
+import { NavLink } from "react-router-dom";
+
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import { Tasks } from "components/Tasks/Tasks.jsx";
@@ -34,6 +36,9 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
+
+import PostCard from "components/Card-Post/CardPost.jsx";
+import Posts from "../posts-data.js";
 
 class Dashboard extends Component {
   createLegend(json) {
@@ -51,7 +56,28 @@ class Dashboard extends Component {
       <div className="content">
         <Grid fluid>
           <Row>
-            <Col lg={3} sm={6}>
+            {Posts.map(
+              element => {
+                return (<Col lg={3} sm={6}>
+                  <NavLink
+                    to={{
+                      pathname: "/admin/post-details",
+                      Post: { element }
+                    }}
+                  >
+                    <PostCard
+                      className=""
+                      post={element}
+                    />
+                  </NavLink>
+                </Col>
+                )
+              }
+            )}
+            {/* <Col lg={3} sm={6}>
+              <PostCard
+
+              />
               <StatsCard
                 bigIcon={<i className="pe-7s-server text-warning" />}
                 statsText="Capacity"
@@ -170,10 +196,10 @@ class Dashboard extends Component {
                   </div>
                 }
               />
-            </Col>
+            </Col>*/}
           </Row>
         </Grid>
-      </div>
+      </div >
     );
   }
 }

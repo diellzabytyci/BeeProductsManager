@@ -23,6 +23,7 @@ import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
+import PostDetailsList from "views/PostDetailsList.jsx";
 
 const dashboardRoutes = [
   {
@@ -72,6 +73,13 @@ const dashboardRoutes = [
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
+    layout: "/admin"
+  },
+  {
+    path: "/post-details",
+    name: "Post Details",
+    icon: "pe-7s-bell",
+    component: PostDetailsList,
     layout: "/admin"
   },
   // {

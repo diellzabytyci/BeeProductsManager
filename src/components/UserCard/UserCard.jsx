@@ -21,9 +21,9 @@ export class UserCard extends Component {
   render() {
     return (
       <div className="card card-user">
-        <div className="image">
-          <img src={this.props.bgImage} alt="..." />
-        </div>
+        {/* <div className="image"> */}
+        <img src={this.props.bgImage} alt="..." />
+        {/* </div> */}
         <div className="content">
           <div className="author">
             <a href="#pablo">
