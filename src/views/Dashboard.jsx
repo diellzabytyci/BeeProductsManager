@@ -21,6 +21,12 @@ import { Grid, Row, Col } from "react-bootstrap";
 
 import { NavLink } from "react-router-dom";
 
+
+//icons
+import { BsSearch } from "react-icons/bs";
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiTwotoneHeart } from "react-icons/ai";
+
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import { Tasks } from "components/Tasks/Tasks.jsx";
@@ -37,10 +43,34 @@ import {
   legendBar
 } from "variables/Variables.jsx";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Button from "components/CustomButton/CustomButton.jsx";
+
 import PostCard from "components/Card-Post/CardPost.jsx";
 import Posts from "../posts-data.js";
+import NotificationSystem from "react-notification-system";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      FavoritePosts: []
+    }
+  }
+
+  componentDidMount() {
+    let stringifiedData = (localStorage.getItem('favoritePosts'));
+    var favPosts;
+    if (stringifiedData != null)
+      favPosts = JSON.parse(stringifiedData);
+
+    if (favPosts != null) this.setState({ FavoritePosts: favPosts.postsArray })
+
+
+  }
+
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -51,30 +81,126 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
+  favorite = (e, post) => {
+    e.preventDefault();
+    this.notify(true, post.PostTitle + ' added to favorites')
+
+    this.addToFavorites(post);
+    //add to backend data
+
+  }
+
+  notify = (added, text) => {
+    if (added)
+      toast.success(text, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+      });
+    else
+      toast.warn(text, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+      });
+  }
+
+  addToFavorites = (post) => {
+    let postsArray = this.state.FavoritePosts;
+    postsArray.push(post);
+    this.setState({
+      FavoritePosts: postsArray
+    })
+    localStorage.setItem('favoritePosts', JSON.stringify({ postsArray: postsArray }));
+  }
+
+  unFavorite = (e, FavPost) => {
+    e.preventDefault();
+    const favPosts = this.state.FavoritePosts.filter(post => post != FavPost);
+    this.notify(false, FavPost.PostTitle + ' removed from favorites')
+    this.setState({
+      FavoritePosts: favPosts
+    })
+
+    localStorage.setItem('favoritePosts', JSON.stringify({ favPosts: favPosts }));
+  }
+
+  test = (element) => {
+    console.log(this.state.FavoritePosts.filer(post => post = element));
+    // qitu ki met me kqyr qka osht kandodh, pse nuk renderohet lista e posts 
+  }
   render() {
     return (
       <div className="content">
-        <Grid fluid>
-          <Row>
-            {Posts.map(
-              element => {
-                return (<Col lg={3} sm={6}>
-                  <NavLink
-                    to={{
-                      pathname: "/admin/post-details",
-                      Post: { element }
-                    }}
-                  >
-                    <PostCard
-                      className=""
-                      post={element}
-                    />
-                  </NavLink>
-                </Col>
-                )
-              }
-            )}
-            {/* <Col lg={3} sm={6}>
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+        />
+        {/* <Grid fluid> */}
+        {/* <Row> */}
+        <div className="post-container d-inline-flex">
+
+          {Posts.map(
+            element => {
+              return (
+                // <Col lg={3} sm={6} key={element.PostID}>
+                <NavLink
+                  to={{
+                    pathname: "/admin/post-details",
+                    Post: { element }
+                  }}
+                  key={element.PostID}
+                >
+                  <PostCard
+                    post={element}
+                    socials={
+                      <div>
+
+                        <div className="card-post-btn">
+                          <BsSearch />
+                        </div>
+                        {this.test(element)}
+                        {this.state.FavoritePosts.includes(element) ?
+                          <div className="card-post-btn" onClick={e => this.unFavorite(e, element)}>
+                            <AiTwotoneHeart />
+                          </div>
+                          :
+                          <div className="card-post-btn" onClick={e => this.favorite(e, element)}>
+                            <AiOutlineHeart />
+                          </div>
+                        }
+                        <div className="card-post-btn" >
+                          <BsSearch />
+                        </div>
+                        {/* <Button simple onClick={e => this.favorite(e)}>
+                            <i className="card-post-btn pe-7s-like2" />
+                          </Button>
+                          <Button simple>
+                            <i className="card-post-btn pe-7s-cash" />
+                          </Button> */}
+                      </div>
+                    }
+                  />
+                </NavLink>
+                // </Col>
+              )
+            }
+          )}
+          {/* <Col lg={3} sm={6}>
               <PostCard
 
               />
@@ -197,8 +323,9 @@ class Dashboard extends Component {
                 }
               />
             </Col>*/}
-          </Row>
-        </Grid>
+        </div>
+        {/* </Row> */}
+        {/* </Grid> */}
       </div >
     );
   }

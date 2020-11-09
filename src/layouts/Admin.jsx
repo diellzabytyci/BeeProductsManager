@@ -41,38 +41,38 @@ class Admin extends Component {
       fixedClasses: "dropdown show-dropdown open"
     };
   }
-  handleNotificationClick = position => {
-    var color = Math.floor(Math.random() * 4 + 1);
-    var level;
-    switch (color) {
-      case 1:
-        level = "success";
-        break;
-      case 2:
-        level = "warning";
-        break;
-      case 3:
-        level = "error";
-        break;
-      case 4:
-        level = "info";
-        break;
-      default:
-        break;
-    }
-    this.state._notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      ),
-      level: level,
-      position: position,
-      autoDismiss: 15
-    });
-  };
+  // handleNotificationClick = position => {
+  //   var color = Math.floor(Math.random() * 4 + 1);
+  //   var level;
+  //   switch (color) {
+  //     case 1:
+  //       level = "success";
+  //       break;
+  //     case 2:
+  //       level = "warning";
+  //       break;
+  //     case 3:
+  //       level = "error";
+  //       break;
+  //     case 4:
+  //       level = "info";
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   this.state._notificationSystem.addNotification({
+  //     title: <span data-notify="icon" className="pe-7s-gift" />,
+  //     message: (
+  //       <div>
+  //         Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
+  //         every web developer.
+  //       </div>
+  //     ),
+  //     level: level,
+  //     position: position,
+  //     autoDismiss: 15
+  //   });
+  // };
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -82,7 +82,7 @@ class Admin extends Component {
             render={props => (
               <prop.component
                 {...props}
-                handleClick={this.handleNotificationClick}
+              //handleClick={this.handleNotificationClick}
               />
             )}
             key={key}
@@ -142,18 +142,18 @@ class Admin extends Component {
       default:
         break;
     }
-    _notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      ),
-      level: level,
-      position: "tr",
-      autoDismiss: 15
-    });
+    // _notificationSystem.addNotification({
+    //   title: <span data-notify="icon" className="pe-7s-gift" />,
+    //   message: (
+    //     <div>
+    //       Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
+    //       every web developer.
+    //     </div>
+    //   ),
+    //   level: level,
+    //   position: "tr",
+    //   autoDismiss: 15
+    // });
   }
   componentDidUpdate(e) {
     if (
@@ -174,8 +174,8 @@ class Admin extends Component {
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar {...this.props} routes={routes} image={this.state.image}
-        color={this.state.color}
-        hasImage={this.state.hasImage}/>
+          color={this.state.color}
+          hasImage={this.state.hasImage} />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
             {...this.props}
@@ -183,7 +183,7 @@ class Admin extends Component {
           />
           <Switch>{this.getRoutes(routes)}</Switch>
           <Footer />
-          
+
         </div>
       </div>
     );

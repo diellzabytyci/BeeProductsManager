@@ -50,9 +50,9 @@ class Sidebar extends Component {
         data-color={this.props.color}
         data-image={this.props.image}
       >
-          {this.props.hasImage ? (
-            <div className="sidebar-background" style={sidebarBackground} />
-          ) : (
+        {this.props.hasImage ? (
+          <div className="sidebar-background" style={sidebarBackground} />
+        ) : (
             null
           )}
         <div className="logo">
@@ -76,30 +76,31 @@ class Sidebar extends Component {
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             {this.props.routes.map((prop, key) => {
               if (!prop.redirect)
-                return (
-                  <li
-                    className={
-                      prop.upgrade
-                        ? "active active-pro"
-                        : this.activeRoute(prop.layout + prop.path)
-                    }
-                    key={key}
-                  >
-                    <NavLink
-                      to={prop.layout + prop.path}
-                      className="nav-link"
-                      activeClassName="active"
+                if (!prop.hidden)
+                  return (
+                    < li
+                      className={
+                        prop.upgrade
+                          ? "active active-pro"
+                          : this.activeRoute(prop.layout + prop.path)
+                      }
+                      key={key}
                     >
-                      <i className={prop.icon} />
-                      <p>{prop.name}</p>
-                    </NavLink>
-                  </li>
-                );
+                      <NavLink
+                        to={prop.layout + prop.path}
+                        className="nav-link"
+                        activeClassName="active"
+                      >
+                        <i className={prop.icon} />
+                        <p>{prop.name}</p>
+                      </NavLink>
+                    </li>
+                  );
               return null;
             })}
           </ul>
         </div>
-      </div>
+      </div >
     );
   }
 }

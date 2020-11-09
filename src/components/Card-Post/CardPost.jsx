@@ -5,16 +5,19 @@ export class CardPost extends Component {
 
     render() {
         return (
-            <div className="card-post mb-5">
-                <div className="card-post-image">
-                    <img src={this.props.post.PostImage} alt="card-post-title" />
-                    {/* this should be hidden and only shown on hover */}
-                    <div className="card-post-details">
-                        hidden section t
+            <div>
+                <div className="card-post post-card-color">
+                    <div className="card-post-image">
+                        <img src={this.props.post.PostImage} alt="card-post-title" className="post-card-image" />
+                        {/* this should be hidden and only shown on hover */}
+                        <div className="card-post-details">
+                            hidden section t
                     </div>
-                </div>
-                <div className="card-post-title">
-                    {this.props.post.PostTitle}
+                    </div>
+                    <div className="card-post-title">
+                        {this.props.post.PostTitle}
+                    </div>
+                    <div className="text-center ">{this.props.socials}</div>
                 </div>
             </div>
         );

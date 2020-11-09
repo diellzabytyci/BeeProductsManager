@@ -80,7 +80,8 @@ const dashboardRoutes = [
     name: "Post Details",
     icon: "pe-7s-bell",
     component: PostDetailsList,
-    layout: "/admin"
+    layout: "/admin",
+    hidden:true
   },
   // {
   //   upgrade: true,
