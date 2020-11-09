@@ -24,6 +24,7 @@ import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 import PostDetailsList from "views/PostDetailsList.jsx";
+import WishList from "views/WishList";
 
 const dashboardRoutes = [
   {
@@ -82,6 +83,13 @@ const dashboardRoutes = [
     component: PostDetailsList,
     layout: "/admin",
     hidden:true
+  },
+  {
+    path: "/favorites",
+    name: "Favorites",
+    icon: "pe-7s-shopbag",
+    component: WishList,
+    layout: "/admin",
   },
   // {
   //   upgrade: true,

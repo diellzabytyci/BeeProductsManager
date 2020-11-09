@@ -11,7 +11,7 @@ export class CardPost extends Component {
                         <img src={this.props.post.PostImage} alt="card-post-title" className="post-card-image" />
                         {/* this should be hidden and only shown on hover */}
                         <div className="card-post-details">
-                            hidden section t
+                            View details
                     </div>
                     </div>
                     <div className="card-post-title">

@@ -17,6 +17,7 @@
 */
 import React, { Component } from "react";
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 class AdminNavbarLinks extends Component {
   render() {
@@ -53,6 +54,10 @@ class AdminNavbarLinks extends Component {
           </NavItem>
         </Nav>
         <Nav pullRight>
+          <NavItem eventKey={1} href="#">
+            <AiOutlineShoppingCart className="wish-list-icon" />
+            <span className="wish-list-link">Wish List</span>
+          </NavItem>
           <NavItem eventKey={1} href="#">
             Account
           </NavItem>

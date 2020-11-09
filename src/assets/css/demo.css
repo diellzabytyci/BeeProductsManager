@@ -860,7 +860,7 @@
 }
 
 .post-card-color {
-  background-color: lightblue;
+  background-color: #269dd4;
 }
 
 .post-card-image {
@@ -885,18 +885,52 @@
 
 .post-container {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   flex-wrap: wrap;
 }
 
 .post-container>a {
   /* flex-basis: 18vw; */
   margin: 1%;
-  transition: all 0.5 ease-in-out;
+  transition: all 0.1s ease-in-out;
 
+}
+
+.card-post-details {
+  opacity: 0;
+  position: absolute;
 }
 
 .post-container>a:hover {
   box-shadow: 2px 1px 12px 5px #888888;
 
+}
+
+.post-container>a:hover .card-post-details {
+  opacity: 1;
+  top: 85%;
+  color: white;
+  transition: all 0.2s ease-in;
+  padding-left: 1%
+}
+
+.post-container>a:hover .card-post-title {
+  color: white;
+  transition: all 0.2s ease-in;
+}
+
+.card-post-title {
+  margin-left: 10px;
+  font-size: 24px;
+  color: lightgray;
+  max-width: inherit;
+}
+
+
+.card-post-image {
+  position: relative;
+}
+
+.wish-list-link {
+  margin-left: 5px;
 }

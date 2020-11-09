@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
@@ -60,17 +44,35 @@ class Dashboard extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
+
     let stringifiedData = (localStorage.getItem('favoritePosts'));
-    var favPosts;
+    var favPosts = [];
+    console.log(stringifiedData);
+    // localStorage.removeItem('favoritePosts')
     if (stringifiedData != null)
       favPosts = JSON.parse(stringifiedData);
 
-    if (favPosts != null) this.setState({ FavoritePosts: favPosts.postsArray })
-
+    if (favPosts != null) {
+      favPosts = this.populateFavorites(favPosts);
+    }
+    this.setState({ FavoritePosts: favPosts })
 
   }
 
+  populateFavorites = (posts) => {
+    let list = [];
+    console.log(posts)
+    for (let originalPost of Posts) {
+      for (let localPost of posts.postsArray) {
+        if (localPost.PostID == originalPost.PostID) {
+          list.push(originalPost);
+          break;
+        }
+      }
+    }
+    return list;
+  }
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -129,13 +131,10 @@ class Dashboard extends Component {
       FavoritePosts: favPosts
     })
 
-    localStorage.setItem('favoritePosts', JSON.stringify({ favPosts: favPosts }));
+    localStorage.setItem('favoritePosts', JSON.stringify({ postsArray: favPosts }));
   }
 
-  test = (element) => {
-    console.log(this.state.FavoritePosts.filer(post => post = element));
-    // qitu ki met me kqyr qka osht kandodh, pse nuk renderohet lista e posts 
-  }
+
   render() {
     return (
       <div className="content">
@@ -173,7 +172,6 @@ class Dashboard extends Component {
                         <div className="card-post-btn">
                           <BsSearch />
                         </div>
-                        {this.test(element)}
                         {this.state.FavoritePosts.includes(element) ?
                           <div className="card-post-btn" onClick={e => this.unFavorite(e, element)}>
                             <AiTwotoneHeart />
